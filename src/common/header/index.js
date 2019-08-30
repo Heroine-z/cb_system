@@ -17,7 +17,7 @@ class HeaderTop extends PureComponent{
             <Layout>
                 <Header className="header">
                     <HeaderContent>
-                        <img className="logoPic" src={logoPic} alt="中金支付logo" style={{float:'left'}}/>
+                        <img className="logoPic" src={logoPic} alt="中金支付logo"/>
                         {
                             loginStatus ? (
                                 <Fragment>
@@ -25,9 +25,6 @@ class HeaderTop extends PureComponent{
                                         <div className="exit" onClick={logout}>退出</div>
                                     </Link>
                                     <div className="userName">{userName}</div>
-                                    <Link to="/">
-                                        <div className="homeBtn">首页</div>
-                                    </Link>
                                 </Fragment>
                             ) : ""
                         }
