@@ -13,7 +13,7 @@ function App() {
           <BrowserRouter>
               <div style={{ height: '100%' }}>
                   <HeaderTop/>
-                  <MenuContent/>
+                  <Route path='/' exact component={MenuContent}></Route>
                   <Route path='/login' exact component={Login}></Route>
               </div>
           </BrowserRouter>
