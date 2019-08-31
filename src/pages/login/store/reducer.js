@@ -3,6 +3,9 @@ import * as actionCreatorType from './actionCreatorsType';
 const defaultStore = fromJS({
     userName:"用户姓名",
     loginStatus:true,
+    institution:"",
+    menuPermission:[],
+    authorization:[]
 });
 
 export default (state = defaultStore, action) =>{
@@ -10,7 +13,9 @@ export default (state = defaultStore, action) =>{
         case actionCreatorType.LOGOUT:
             return state.merge({
                 userName:action.userName,
-                loginStatus:action.loginStatus
+                loginStatus:action.loginStatus,
+                menuPermission:[],
+                authorization:[]
             });
         default :
             return state;

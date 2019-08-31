@@ -1,7 +1,7 @@
 import React,{PureComponent} from 'react';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 class MenuContent extends PureComponent{
@@ -10,7 +10,6 @@ class MenuContent extends PureComponent{
     };
 
     onCollapse = collapsed => {
-        console.log(collapsed);
         this.setState({ collapsed });
     };
     render(){
@@ -65,6 +64,7 @@ class MenuContent extends PureComponent{
                             <Breadcrumb.Item>Bill</Breadcrumb.Item>
                         </Breadcrumb>
                         <div style={{  background: '#fff', minHeight: '85vh' }}>Bill is a cat.</div>
+                        <Footer style={{ textAlign: 'center' }}>版权所有 中金支付有限公司 京ICP证120015号 京公网安备110102005601 7×12小时客服热线：400-860-9888 业务联系：servicedesk@cfca.com.cn</Footer>
                     </Content>
                 </Layout>
             </Layout>
