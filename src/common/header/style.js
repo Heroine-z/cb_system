@@ -26,6 +26,7 @@ export const HeaderContent = styled.div`
         float:right;
         width:110px;
         cursor: pointer;
+        color:#fff;
     }
     .exit:hover{
         font-weight: bolder;

@@ -15,7 +15,7 @@ class HeaderTop extends PureComponent{
         const {userName,logout,loginStatus} = this.props;
         return (
             <Layout>
-                <Header className="header">
+                <Header className="header" style={{zIndex:'100'}}>
                     <HeaderContent>
                         <img className="logoPic" src={logoPic} alt="中金支付logo"/>
                         {
