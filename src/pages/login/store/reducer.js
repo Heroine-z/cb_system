@@ -5,7 +5,7 @@ const defaultStore = fromJS({
     loginStatus:true,
     institution:"",
     menuPermission:[],
-    authorization:[]
+    userRight:[]
 });
 
 export default (state = defaultStore, action) =>{
@@ -15,7 +15,7 @@ export default (state = defaultStore, action) =>{
                 userName:action.userName,
                 loginStatus:action.loginStatus,
                 menuPermission:[],
-                authorization:[]
+                userRight:[]
             });
         default :
             return state;
