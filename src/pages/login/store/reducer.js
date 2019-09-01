@@ -3,6 +3,7 @@ import * as actionCreatorType from './actionCreatorsType';
 const defaultStore = fromJS({
     userName:"",
     loginStatus:false,
+    errMessage:"",
     imgUrl:"",
     institution:"",
     menuPermission:[],
@@ -24,6 +25,7 @@ export default (state = defaultStore, action) =>{
             return state.merge({
                 userName:action.userName,
                 loginStatus:action.loginStatus,
+                errMessage:action.errMessage,
                 institution:action.institution,
                 menuPermission:action.menuPermission,
                 userRight:action.userRight

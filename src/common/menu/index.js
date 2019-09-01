@@ -1,88 +1,89 @@
-import React,{PureComponent} from 'react';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import React, {PureComponent} from 'react';
+import {Layout, Menu, Breadcrumb, Icon} from 'antd';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
-const { Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
+const {Content, Footer, Sider} = Layout;
+const {SubMenu} = Menu;
 
-class MenuContent extends PureComponent{
+class MenuContent extends PureComponent {
     state = {
         collapsed: false,
     };
 
     onCollapse = collapsed => {
-        this.setState({ collapsed });
+        this.setState({collapsed});
     };
-    render(){
-        const {loginStatus} = this.props;
-        if(loginStatus){
+
+    render() {
+        const {loginStatus,menuPermission,menuSecondName} = this.props;
+        if (loginStatus) {
             return (
-                <Layout style={{ minHeight: '90vh'}}>
+                <Layout style={{minHeight: '90vh'}}>
                     <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
-                        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                            <Menu.Item key="1">
-                                <Icon type="user" />
-                                <span>Option 1</span>
-                            </Menu.Item>
-                            <Menu.Item key="2">
-                                <Icon type="smile" />
-                                <span>Option 2</span>
-                            </Menu.Item>
-                            <SubMenu
-                                key="sub1"
-                                title={
-                                    <span>
-                  <Icon type="smile" />
-                  <span>User</span>
-                </span>
-                                }
-                            >
-                                <Menu.Item key="3">Tom</Menu.Item>
-                                <Menu.Item key="4">Bill</Menu.Item>
-                                <Menu.Item key="5">Alex</Menu.Item>
-                            </SubMenu>
-                            <SubMenu
-                                key="sub2"
-                                title={
-                                    <span>
-                  <Icon type="smile" />
-                  <span>Team</span>
-                </span>
-                                }
-                            >
-                                <Menu.Item key="6">Team 1</Menu.Item>
-                                <Menu.Item key="8">Team 2</Menu.Item>
-                            </SubMenu>
-                            <Menu.Item key="9">
-                                <Icon type="smile" />
-                                <span>File</span>
-                            </Menu.Item>
+                        <Menu theme="dark"
+                              defaultSelectedKeys={['1']}
+                              mode="inline"
+                              subMenuCloseDelay={0}
+                              onClick={this.MenuItemClick}
+                        >
+                            {
+                                menuPermission.map((item)=>(
+                                    <SubMenu
+                                        key={item.nodeId}
+                                        title={
+                                            <span>
+                                                <Icon type="smile"/>
+                                                <span>{item.nodeName}</span>
+                                            </span>
+                                        }
+
+                                    >
+                                        {
+                                            item.children.map((item)=>(
+                                                <Menu.Item key={item.nodeId} >{item.nodeName}</Menu.Item>
+                                            ))
+                                        }
+
+                                    </SubMenu>
+                                ))
+                            }
                         </Menu>
                     </Sider>
                     <Layout>
-                        <Content style={{ margin: '0 16px' }}>
-                            <Breadcrumb style={{ margin: '16px 0' }}>
+                        <Content style={{margin: '0 16px'}}>
+                            <Breadcrumb style={{margin: '16px 0'}}>
                                 <Breadcrumb.Item>User</Breadcrumb.Item>
-                                <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                                <Breadcrumb.Item>{menuSecondName}</Breadcrumb.Item>
                             </Breadcrumb>
-                            <div style={{  background: '#fff', minHeight: '83vh' }}>Bill is a cat.</div>
-                            <Footer style={{ textAlign: 'center' }}>版权所有 中金支付有限公司 京ICP证120015号 京公网安备110102005601 7×12小时客服热线：400-860-9888 业务联系：servicedesk@cfca.com.cn</Footer>
+                            <div style={{background: '#fff', minHeight: '83vh'}}>Bill is a cat.</div>
+
+                            <Footer style={{textAlign: 'center'}}>版权所有 中金支付有限公司 京ICP证120015号 京公网安备110102005601
+                                7×12小时客服热线：400-860-9888 业务联系：servicedesk@cfca.com.cn</Footer>
                         </Content>
                     </Layout>
                 </Layout>
             )
-        }else{
-            return <Redirect to='/login' />
+        } else {
+            return <Redirect to='/login'/>
         }
 
     }
+    MenuItemClick(itemMenu){
+        console.log(itemMenu);
+       // console.log(this.props.menuPermission.map((item)=>{item.nodeId === itemMenu.keyPath[1] ? item.nodeName:null }));
+        console.log(itemMenu.keyPath[1]);
+        console.log(itemMenu.key);
+        console.log(itemMenu.item.props.children);
+    }
 
 }
-const initMapStateToProps = (state) =>{
+
+const initMapStateToProps = (state) => {
     return {
-        loginStatus: state.getIn(['login','loginStatus'])
+        loginStatus: state.getIn(['login', 'loginStatus']),
+        menuPermission: state.getIn(['login', 'menuPermission']),
     }
 
 };
-export default connect(initMapStateToProps,null)(MenuContent);
+export default connect(initMapStateToProps, null)(MenuContent);

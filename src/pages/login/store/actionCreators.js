@@ -19,7 +19,8 @@ export const getLoginData = (data) =>({
     loginStatus:data.loginStatus,
     institution:data.institution,
     menuPermission:data.menuPermission,
-    userRight:data.userRight
+    userRight:data.userRight,
+    errMessage:data.errMessage
 });
 
 export const login =(params) =>{
@@ -30,6 +31,9 @@ export const login =(params) =>{
           method: 'get',
           params:params
       }).then((res)=>{
+          if(!res){
+              alert("连接服务器失败")
+          }
           dispatch(getLoginData(res.data.data))
       })
   }

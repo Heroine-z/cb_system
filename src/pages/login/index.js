@@ -13,7 +13,7 @@ class LoginForm extends PureComponent{
 
     render(){
         const { getFieldDecorator } = this.props.form;
-        const {changeCheckCode,loginStatus,imgUrl} = this.props;
+        const {changeCheckCode,loginStatus,imgUrl,errMessage} = this.props;
         if(!loginStatus){
             return (
                 <Fragment>
@@ -65,9 +65,9 @@ class LoginForm extends PureComponent{
                                 <Button type="primary" htmlType="submit" className="login-form-button">
                                     登录
                                 </Button>
-                                <ErrorMessge>
-                                    aaaa
-                                </ErrorMessge>
+                                {
+                                    errMessage ? (<ErrorMessge>{errMessage}</ErrorMessge>):null
+                                }
                             </Form.Item>
                         </Form>
                     </LoginWrapper>
@@ -101,7 +101,8 @@ class LoginForm extends PureComponent{
 const initMapStateToProps = (state)=>{
   return {
       loginStatus:state.getIn(['login','loginStatus']),
-      imgUrl:state.getIn(['login','imgUrl'])
+      imgUrl:state.getIn(['login','imgUrl']),
+      errMessage:state.getIn(['login','errMessage'])
   }
 };
 

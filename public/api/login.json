@@ -3,6 +3,7 @@
   "data":{
     "userName":"zhaoyuxing",
     "loginStatus":true,
+    "errMessage":"",
     "institution":"000020",
     "menuPermission":[
       {
@@ -15,7 +16,7 @@
           },
           {
             "nodeId":"4102",
-            "nodeName":"快捷交易"
+            "nodeName":"快捷查询"
           }
         ]
       },
