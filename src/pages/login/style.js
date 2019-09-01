@@ -8,7 +8,7 @@ export const LoginWrapper = styled.div`
     border-radius:30px;
     text-align:center;
     box-shadow:0 0 8px rgba(0,0,0,0.1);
-    img{
+    .logoPic{
         margin:30px auto;
     }
     .username{
@@ -27,6 +27,12 @@ export const LoginWrapper = styled.div`
         border-color: #d82128;
         background:#b7282d;
         font-weight:bold;
+    }
+    .f-right{
+        cursor: pointer;
+    }
+    .checkCodeImg{
+        cursor: pointer;
     }
 `;
 

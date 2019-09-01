@@ -5,9 +5,9 @@ const Footer = () =>{
     return (
         <FooterContent>
             <div className="frindly_link">
-                <span>友情链接：</span> <a href="http://www.pbc.gov.cn/" target="_blank">中国人民银行</a>
-                <span>|</span> <a href="http://cn.unionpay.com/" target="_blank">中国银联</a>
-                <span>|</span> <a href="http://www.cfca.com.cn/" target="_blank">中国金融认证中心</a>
+                <span>友情链接：</span> <a href="http://www.pbc.gov.cn/" target="_blank" rel="noopener noreferrer">中国人民银行</a>
+                <span>|</span> <a href="http://cn.unionpay.com/" target="_blank" rel="noopener noreferrer">中国银联</a>
+                <span>|</span> <a href="http://www.cfca.com.cn/" target="_blank" rel="noopener noreferrer">中国金融认证中心</a>
             </div>
             <div className="copyright">
                 <span>版权所有</span> <span className="ml_5">中金支付有限公司</span> <span

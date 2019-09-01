@@ -1,8 +1,9 @@
 import {fromJS} from 'immutable';
 import * as actionCreatorType from './actionCreatorsType';
 const defaultStore = fromJS({
-    userName:"用户姓名",
-    loginStatus:true,
+    userName:"",
+    loginStatus:false,
+    imgUrl:"",
     institution:"",
     menuPermission:[],
     userRight:[]
@@ -16,6 +17,16 @@ export default (state = defaultStore, action) =>{
                 loginStatus:action.loginStatus,
                 menuPermission:[],
                 userRight:[]
+            });
+        case actionCreatorType.GET_CHECK_CODE:
+            return state.set('imgUrl',action.imgUrl);
+        case actionCreatorType.GET_LOGIN_DATA:
+            return state.merge({
+                userName:action.userName,
+                loginStatus:action.loginStatus,
+                institution:action.institution,
+                menuPermission:action.menuPermission,
+                userRight:action.userRight
             });
         default :
             return state;
