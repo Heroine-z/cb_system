@@ -16,8 +16,8 @@ export default (state = defaultStore, action) =>{
             return state.merge({
                 userName:action.userName,
                 loginStatus:action.loginStatus,
-                menuPermission:[],
-                userRight:[]
+                menuPermission:fromJS([]),
+                userRight:fromJS([]),
             });
         case actionCreatorType.GET_CHECK_CODE:
             return state.set('imgUrl',action.imgUrl);
@@ -27,8 +27,8 @@ export default (state = defaultStore, action) =>{
                 loginStatus:action.loginStatus,
                 errMessage:action.errMessage,
                 institution:action.institution,
-                menuPermission:action.menuPermission,
-                userRight:action.userRight
+                menuPermission:fromJS(action.menuPermission),
+                userRight:fromJS(action.userRight),
             });
         default :
             return state;

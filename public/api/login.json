@@ -12,11 +12,13 @@
         "children":[
           {
             "nodeId":"4101",
-            "nodeName":"快捷绑卡"
+            "nodeName":"快捷绑卡",
+            "url":"AggregateQuickBinding.do"
           },
           {
             "nodeId":"4102",
-            "nodeName":"快捷查询"
+            "nodeName":"快捷查询",
+            "url":"AggregatePayment.do"
           }
         ]
       },
@@ -26,11 +28,13 @@
         "children":[
           {
             "nodeId":"6101",
-            "nodeName":"订单信息"
+            "nodeName":"订单信息",
+            "url":"OutwardOrder.do"
           },
           {
             "nodeId":"6102",
-            "nodeName":"订单批次"
+            "nodeName":"付款信息",
+            "url":"OutwardPayment.do"
           }
         ]
       }

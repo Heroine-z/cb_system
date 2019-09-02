@@ -1,9 +1,11 @@
 import React, {PureComponent} from 'react';
-import {Layout, Menu, Breadcrumb, Icon} from 'antd';
+import {Layout, Menu, Icon} from 'antd';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import ContentBox from '../infocontent';
+import * as actionCreators from '../../pages/content/store/actionCreators';
 
-const {Content, Footer, Sider} = Layout;
+const {Sider} = Layout;
 const {SubMenu} = Menu;
 
 class MenuContent extends PureComponent {
@@ -16,7 +18,8 @@ class MenuContent extends PureComponent {
     };
 
     render() {
-        const {loginStatus,menuPermission,menuSecondName} = this.props;
+        const {loginStatus,menuPermission,setSubMenu} = this.props;
+        console.log(menuPermission);
         if (loginStatus) {
             return (
                 <Layout style={{minHeight: '90vh'}}>
@@ -25,10 +28,10 @@ class MenuContent extends PureComponent {
                               defaultSelectedKeys={['1']}
                               mode="inline"
                               subMenuCloseDelay={0}
-                              onClick={this.MenuItemClick}
+                              onClick={setSubMenu}
                         >
                             {
-                                menuPermission.map((item)=>(
+                                menuPermission.toJS().map((item)=>(
                                     <SubMenu
                                         key={item.nodeId}
                                         title={
@@ -37,30 +40,19 @@ class MenuContent extends PureComponent {
                                                 <span>{item.nodeName}</span>
                                             </span>
                                         }
-
                                     >
                                         {
                                             item.children.map((item)=>(
                                                 <Menu.Item key={item.nodeId} >{item.nodeName}</Menu.Item>
                                             ))
                                         }
-
                                     </SubMenu>
                                 ))
                             }
                         </Menu>
                     </Sider>
                     <Layout>
-                        <Content style={{margin: '0 16px'}}>
-                            <Breadcrumb style={{margin: '16px 0'}}>
-                                <Breadcrumb.Item>User</Breadcrumb.Item>
-                                <Breadcrumb.Item>{menuSecondName}</Breadcrumb.Item>
-                            </Breadcrumb>
-                            <div style={{background: '#fff', minHeight: '83vh'}}>Bill is a cat.</div>
-
-                            <Footer style={{textAlign: 'center'}}>版权所有 中金支付有限公司 京ICP证120015号 京公网安备110102005601
-                                7×12小时客服热线：400-860-9888 业务联系：servicedesk@cfca.com.cn</Footer>
-                        </Content>
+                        <ContentBox/>
                     </Layout>
                 </Layout>
             )
@@ -69,13 +61,6 @@ class MenuContent extends PureComponent {
         }
 
     }
-    MenuItemClick(itemMenu){
-        console.log(itemMenu);
-       // console.log(this.props.menuPermission.map((item)=>{item.nodeId === itemMenu.keyPath[1] ? item.nodeName:null }));
-        console.log(itemMenu.keyPath[1]);
-        console.log(itemMenu.key);
-        console.log(itemMenu.item.props.children);
-    }
 
 }
 
@@ -83,7 +68,16 @@ const initMapStateToProps = (state) => {
     return {
         loginStatus: state.getIn(['login', 'loginStatus']),
         menuPermission: state.getIn(['login', 'menuPermission']),
+        submenu:state.getIn(['content','submenu']),
     }
 
 };
-export default connect(initMapStateToProps, null)(MenuContent);
+const initMapDispatchToProps = (dispatch) =>{
+    return {
+        // 根据点击的二级菜单NodeId，设置显示对应页面
+        setSubMenu(itemMenu){
+            dispatch(actionCreators.setSubMenu(itemMenu.key));
+        }
+    }
+};
+export default connect(initMapStateToProps, initMapDispatchToProps)(MenuContent);
