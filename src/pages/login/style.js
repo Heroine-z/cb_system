@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const LoginWrapper = styled.div`
     width:500px;
     height:400px;
-    margin:200px auto 100px;
+    margin:16vh auto 10vh;
     background:#f3f3f3;
     border-radius:30px;
     text-align:center;
