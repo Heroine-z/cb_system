@@ -2,6 +2,8 @@ import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../store/actionCreators';
 import {Tabs} from 'antd';
+import "./style.css";
+
 const {TabPane} = Tabs;
 class TabComponent extends PureComponent {
 

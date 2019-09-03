@@ -1,21 +1,22 @@
 import {fromJS} from 'immutable';
 import * as actionCreatorType from './actionCreatorsType';
 const defaultStore = fromJS({
-    userName:"",
-    loginStatus:false,
+    userName:sessionStorage.getItem('userName'),
+    loginStatus:JSON.parse(sessionStorage.getItem('loginStatus')),
     errMessage:"",
     imgUrl:"",
-    institution:"",
-    menuPermission:[],
-    userRight:[]
+    institution:sessionStorage.getItem('institution'),
+    menuPermission:JSON.parse(sessionStorage.getItem('menuPermission')),
+    userRight:JSON.parse(sessionStorage.getItem('userRight'))
 });
 
 export default (state = defaultStore, action) =>{
     switch (action.type) {
         case actionCreatorType.LOGOUT:
             return state.merge({
-                userName:action.userName,
-                loginStatus:action.loginStatus,
+                userName:"",
+                loginStatus:false,
+                institution:"",
                 menuPermission:fromJS([]),
                 userRight:fromJS([]),
             });

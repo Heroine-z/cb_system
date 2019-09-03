@@ -28,6 +28,7 @@ class LoginForm extends PureComponent{
                                         prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                         placeholder="Username"
                                         className="username"
+                                        name="userName"
                                     />,
                                 )}
                             </Form.Item>
@@ -40,6 +41,7 @@ class LoginForm extends PureComponent{
                                         type="password"
                                         placeholder="Password"
                                         className="password"
+                                        name="loginPassword"
                                     />,
                                 )}
                             </Form.Item>
@@ -49,7 +51,10 @@ class LoginForm extends PureComponent{
                                         {getFieldDecorator('licence', {
                                             rules: [{ required: true, message: '请输入验证码!' }],
                                         })(
-                                            <Input placeholder="请输入" autoComplete="off" />
+                                            <Input placeholder="请输入"
+                                                   autoComplete="off"
+                                                   name="licence"
+                                            />
                                         )}
                                     </Col>
                                     <Col span={6} style={{height:'35px',margin:'0 10px'}}>

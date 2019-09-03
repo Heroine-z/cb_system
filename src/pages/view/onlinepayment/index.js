@@ -1,6 +1,6 @@
 import React, {PureComponent,Fragment} from 'react';
-import AggregateQuickBinding from './submenu/AggregateQuickBinding';
-import AggregatePayment from './submenu/AggregatePayment';
+import AggregateQuickBinding from './submenu/aggregatequickbinding';
+import AggregatePayment from './submenu/aggregatepayment';
 import {connect} from 'react-redux';
 
 class OnlinePayment extends PureComponent{

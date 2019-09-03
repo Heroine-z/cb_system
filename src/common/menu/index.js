@@ -19,7 +19,6 @@ class MenuContent extends PureComponent {
 
     render() {
         const {loginStatus,menuPermission,setSubMenu} = this.props;
-        console.log(menuPermission);
         if (loginStatus) {
             return (
                 <Layout style={{minHeight: '90vh'}}>

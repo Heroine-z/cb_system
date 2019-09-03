@@ -1,7 +1,8 @@
 import React, {PureComponent,Fragment} from 'react';
 import {connect} from 'react-redux';
-import * as actionCreators from '../../../content/store/actionCreators';
-import TabComponent from '../../../content/common/tab/index';
+import * as actionCreators from '../../../../content/store/actionCreators';
+import TabComponent from '../../../../content/common/tab/index';
+import SerachBox from './components/SearchBox';
 
 class AggregateQuickBinding extends PureComponent{
 
@@ -9,7 +10,8 @@ class AggregateQuickBinding extends PureComponent{
         const {activeKey} = this.props;
         return(
             <Fragment>
-               <TabComponent />
+                <TabComponent />
+                {activeKey === "1" ? (<SerachBox />) : null}
             </Fragment>
         )
     }
@@ -31,9 +33,9 @@ const initMapStateToProps = (state) => {
 };
 const initMapDispatchToProps = (dispatch) => {
     return{
-       setTab(tabList){
-           dispatch(actionCreators.setTab(tabList));
-       }
+        setTab(tabList){
+            dispatch(actionCreators.setTab(tabList));
+        }
     }
 };
 export default connect(initMapStateToProps, initMapDispatchToProps)(AggregateQuickBinding);
