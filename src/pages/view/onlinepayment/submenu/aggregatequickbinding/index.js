@@ -1,8 +1,10 @@
 import React, {PureComponent,Fragment} from 'react';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../../content/store/actionCreators';
-import TabComponent from '../../../../content/common/tab/index';
-import SerachBox from './components/SearchBox';
+import TabComponent from '../../../../content/common/tab';
+import SerachBox from '../../../../content/common/searchbox';
+import TableList from '../../../../content/common/tablelist';
+import * as configManage from './configManage';
 
 class AggregateQuickBinding extends PureComponent{
 
@@ -11,18 +13,24 @@ class AggregateQuickBinding extends PureComponent{
         return(
             <Fragment>
                 <TabComponent />
-                {activeKey === "1" ? (<SerachBox />) : null}
+                <SerachBox />
+                <TableList />
             </Fragment>
         )
     }
 
     componentDidMount(){
-        const {setTab} = this.props;
+        // 设置tab标题
+        const {setTab,setSearchCondition} = this.props;
         const tabList = [
             { title: '快捷绑卡', key: '1', closable: false,},
             { title: '快捷支付', key: '2', closable: false,}
         ];
         setTab(tabList);
+
+        // 设置搜索框
+        const searchCondition = configManage.searchCondition();
+        setSearchCondition(searchCondition);
     }
 
 }
@@ -35,6 +43,9 @@ const initMapDispatchToProps = (dispatch) => {
     return{
         setTab(tabList){
             dispatch(actionCreators.setTab(tabList));
+        },
+        setSearchCondition(searchCondition){
+            dispatch(actionCreators.setSearchCondition(searchCondition));
         }
     }
 };

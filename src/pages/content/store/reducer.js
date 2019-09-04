@@ -5,6 +5,7 @@ const defaultStore = fromJS({
     submenu:"",
     panes:[],
     activeKey:"1",
+    searchCondition:[],
 });
 
 export default (state = defaultStore, action) =>{
@@ -20,6 +21,8 @@ export default (state = defaultStore, action) =>{
             });
         case actionCreatorType.SET_TAB:
             return state.set('panes',fromJS(action.panes));
+        case actionCreatorType.SET_SEARCH_CONDITION:
+            return state.set('searchCondition',fromJS(action.searchCondition));
         default :
             return state;
     }

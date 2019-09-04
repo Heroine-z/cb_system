@@ -10,6 +10,11 @@ export const setTab = (panes) =>({
     panes,
 });
 
+export const setSearchCondition = (searchCondition) =>({
+    type: actionCreatorsType.SET_SEARCH_CONDITION,
+    searchCondition,
+});
+
 export const changeTab = (activeKey) => ({
     type: actionCreatorsType.CHANGE_TAB,
     activeKey,
