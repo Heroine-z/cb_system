@@ -19,9 +19,10 @@ export const changeTab = (activeKey) => ({
     type: actionCreatorsType.CHANGE_TAB,
     activeKey,
 });
-export const addTab = () => ({
+export const addTab = (panes,activeKey) => ({
     type: actionCreatorsType.ADD_TAB,
-
+    panes,
+    activeKey,
 });
 const newTab = (panes, activeKey) => ({
     type: actionCreatorsType.REMOVE_TAB,
@@ -37,10 +38,12 @@ export const removeTab = (panes, activeKey, targetKey) => {
                 lastIndex = i - 1;
             }
         });
-        const newPanes = panes.filter(pane => pane.get('key') !== targetKey);
+
+        const newPanes = panes.toJS().filter(pane => pane.key !== targetKey);
         if (newPanes.length && activeKey === targetKey) {
             if (lastIndex >= 0) {
                 activeKey = newPanes[lastIndex].key;
+
             } else {
                 activeKey = newPanes[0].key;
             }
@@ -49,3 +52,7 @@ export const removeTab = (panes, activeKey, targetKey) => {
     }
 
 };
+export const setDetailData = (detailData) =>({
+    type: actionCreatorsType.SET_DETAIL_DATA,
+    detailData,
+});

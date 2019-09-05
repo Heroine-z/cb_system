@@ -10,7 +10,7 @@ class SearchBox extends PureComponent {
     getFields() {
         const {getFieldDecorator} = this.props.form;
         const {searchCondition,activeKey} = this.props;
-        const searchGroup = searchCondition.toJS().length>0?searchCondition.toJS()[parseInt(activeKey)-1]:[];
+        const searchGroup = searchCondition.toJS().length>0 && !isNaN(activeKey) ?searchCondition.toJS()[parseInt(activeKey)-1]:[];
         const children = [];
         for (let i = 0; i < searchGroup.length; i++) {
             children.push(
