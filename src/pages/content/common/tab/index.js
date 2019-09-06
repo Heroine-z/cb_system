@@ -13,8 +13,8 @@ class TabComponent extends PureComponent {
 
     // 点击X关闭事件
     remove = targetKey => {
-        let {activeKey,panes,removeTab} = this.props;
-        removeTab(panes,activeKey,targetKey)
+        let {activeKey,panes,removeTab,detailData} = this.props;
+        removeTab(panes,activeKey,targetKey,detailData)
     };
 
     render() {
@@ -44,6 +44,7 @@ const initMapStateToProps = (state) => {
     return {
         panes: state.getIn(['content', 'panes']),
         activeKey: state.getIn(['content', 'activeKey']),
+        detailData: state.getIn(['content', 'detailData']),
     }
 };
 const initMapDispatchToProps = (dispatch) => {
@@ -53,8 +54,8 @@ const initMapDispatchToProps = (dispatch) => {
             dispatch(actionCreators.changeTab(activeKey));
         },
         // 关闭标签
-        removeTab(panes,activeKey,targetKey){
-            dispatch(actionCreators.removeTab(panes,activeKey,targetKey));
+        removeTab(panes,activeKey,targetKey,detailData){
+            dispatch(actionCreators.removeTab(panes,activeKey,targetKey,detailData));
         },
     }
 };

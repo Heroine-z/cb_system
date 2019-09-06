@@ -10,11 +10,6 @@ export const setTab = (panes) =>({
     panes,
 });
 
-export const setSearchCondition = (searchCondition) =>({
-    type: actionCreatorsType.SET_SEARCH_CONDITION,
-    searchCondition,
-});
-
 export const changeTab = (activeKey) => ({
     type: actionCreatorsType.CHANGE_TAB,
     activeKey,
@@ -24,13 +19,14 @@ export const addTab = (panes,activeKey) => ({
     panes,
     activeKey,
 });
-const newTab = (panes, activeKey) => ({
+const newTab = (panes, activeKey,detailData) => ({
     type: actionCreatorsType.REMOVE_TAB,
     panes,
     activeKey,
+    detailData,
 });
 
-export const removeTab = (panes, activeKey, targetKey) => {
+export const removeTab = (panes, activeKey, targetKey, detailData) => {
     return (dispatch) => {
         let lastIndex;
         panes.forEach((pane, i) => {
@@ -40,6 +36,7 @@ export const removeTab = (panes, activeKey, targetKey) => {
         });
 
         const newPanes = panes.toJS().filter(pane => pane.key !== targetKey);
+        const newDetailData = detailData.toJS().filter(data => data.activeKey !== targetKey);
         if (newPanes.length && activeKey === targetKey) {
             if (lastIndex >= 0) {
                 activeKey = newPanes[lastIndex].key;
@@ -48,11 +45,18 @@ export const removeTab = (panes, activeKey, targetKey) => {
                 activeKey = newPanes[0].key;
             }
         }
-        dispatch(newTab(newPanes, activeKey));
+        dispatch(newTab(newPanes, activeKey,newDetailData));
     }
 
 };
-export const setDetailData = (detailData) =>({
+const setdetailDataAction = (detailData)=>({
     type: actionCreatorsType.SET_DETAIL_DATA,
     detailData,
 });
+
+export const setDetailData = (detailData,activeKey) =>{
+    return (dispatch)=>{
+        detailData.activeKey = activeKey;
+        dispatch(setdetailDataAction(detailData))
+    }
+};

@@ -1,11 +1,12 @@
-import {DatePicker, Divider, Input, Select} from "antd";
+import {DatePicker, Divider, Input, Select, Table} from "antd";
 import React from "react";
+
 const {Option} = Select;
 // tab 标题
-export const tabList = () =>{
+export const tabList = () => {
     return [
-        { title: '快捷绑卡', key: '1', closable: false,},
-        { title: '快捷支付', key: '2', closable: false,}
+        {title: '快捷绑卡', key: '1', closable: false,},
+        {title: '快捷支付', key: '2', closable: false,}
     ];
 };
 
@@ -111,7 +112,7 @@ const search2 = [
 ];
 
 // 搜索条件
-export const searchCondition = [search1,search2];
+export const searchCondition = [search1, search2];
 
 // 搜索url
 export const searchUrl = [
@@ -199,3 +200,35 @@ export const columns2 = [
 
 // 列表展示列头项
 export const columns = [columns1,columns2];
+
+export const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    },
+};
+export const data = ()=>{
+    let desc = [
+        {
+            key: '201908301817239003959363321',
+            SystemNo: '201908301817239003959363321',
+            SystemTime: '2019-08-30 18:17:23',
+            TxType: '2001-快捷绑卡',
+            BindingTxSN:'201908301815356855220558762',
+            BankID:'700-其他银行',
+            UserID:'201908301817239017698572872',
+            AccountName:'跨境支付4',
+            "借贷记":'借记',
+        },
+        {
+            key: '201908301817239003959363322',
+            SystemNo: '201908301817239003959363322',
+            SystemTime: '2019-08-30 18:00:00',
+            TxType: '2001-快捷绑卡',
+            BindingTxSN:'201908301815356855220558762',
+            BankID:'100-邮储银行',
+            UserID:'201908301817239017698572872',
+            AccountName:'跨境支付5'
+        },
+    ];
+    return desc;
+};

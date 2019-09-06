@@ -9,15 +9,15 @@ class SearchBox extends PureComponent {
     // 将搜索条件进行赋值
     getFields() {
         const {getFieldDecorator} = this.props.form;
-        const {searchCondition,activeKey} = this.props;
-        const searchGroup = searchCondition.toJS().length>0 && !isNaN(activeKey) ?searchCondition.toJS()[parseInt(activeKey)-1]:[];
+        const {searchCondition} = this.props;
+
         const children = [];
-        for (let i = 0; i < searchGroup.length; i++) {
+        for (let i = 0; i < searchCondition.length; i++) {
             children.push(
                 <Col span={4} key={i}>
-                    <Form.Item label={searchGroup[i].label} labelCol={{span: 10}}>
-                        {getFieldDecorator(searchGroup[i].name, {})(
-                            searchGroup[i].type
+                    <Form.Item label={searchCondition[i].label} labelCol={{span: 10}}>
+                        {getFieldDecorator(searchCondition[i].name, {})(
+                            searchCondition[i].type
                         )}
                     </Form.Item>
                 </Col>,
@@ -68,7 +68,6 @@ class SearchBox extends PureComponent {
 
 const initMapStateToProps = (state) => {
     return {
-        searchCondition: state.getIn(['content', 'searchCondition']),
         activeKey:state.getIn(['content', 'activeKey'])
     }
 };

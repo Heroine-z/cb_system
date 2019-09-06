@@ -15,10 +15,6 @@ const columns = [
     },
 ];
 class Detail extends PureComponent{
-    constructor(props){
-        super(props);
-        console.log(this.props.detailData)
-    }
     render(){
         return(
                 <Table
@@ -28,6 +24,10 @@ class Detail extends PureComponent{
                     title={() => '详情'}
                 />
         )
+    }
+    componentDidUpdate(){
+        const {data} = this.props;
+        console.log(data)
     }
 
 }

@@ -5,9 +5,7 @@ const defaultStore = fromJS({
     submenu:"",
     panes:[],
     activeKey:"1",
-    searchCondition:[],
-    columns:[],
-    detailData:{},
+    detailData:[],
 });
 
 export default (state = defaultStore, action) =>{
@@ -20,6 +18,7 @@ export default (state = defaultStore, action) =>{
             return state.merge({
                 panes:fromJS(action.panes),
                 activeKey:action.activeKey,
+                detailData:fromJS(action.detailData),
             });
         case actionCreatorType.ADD_TAB:
             return state.merge({
@@ -28,10 +27,8 @@ export default (state = defaultStore, action) =>{
             });
         case actionCreatorType.SET_TAB:
             return state.set('panes',fromJS(action.panes));
-        case actionCreatorType.SET_SEARCH_CONDITION:
-            return state.set('searchCondition',fromJS(action.searchCondition));
         case actionCreatorType.SET_DETAIL_DATA:
-            return state.set('detailData',fromJS(action.detailData));
+            return state.set('detailData',state.get('detailData').push(fromJS(action.detailData)));
         default :
             return state;
     }
