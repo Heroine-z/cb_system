@@ -1,4 +1,6 @@
 import * as actionCreatorsType from "./actionCreatorsType";
+import axiosUtil from '../../../util/axiosUtil';
+import { generateUID } from '../../../util/generateUID';
 
 export const setSubMenu = (submenu) => ({
     type: actionCreatorsType.SET_SUBMENU,
@@ -49,14 +51,37 @@ export const removeTab = (panes, activeKey, targetKey, detailData) => {
     }
 
 };
-const setdetailDataAction = (detailData)=>({
+const setDataAction = (detailData)=>({
     type: actionCreatorsType.SET_DETAIL_DATA,
     detailData,
 });
 
-export const setDetailData = (detailData,activeKey) =>{
+export const setData = (detailData,activeKey) =>{
     return (dispatch)=>{
         detailData.activeKey = activeKey;
-        dispatch(setdetailDataAction(detailData))
+        dispatch(setDataAction(detailData))
+    }
+};
+const deleteListData = (data,activeKey) =>({
+   type:actionCreatorsType.DELETE_DATA,
+    data,
+    activeKey
+});
+
+export const deleteData = (params, url,activeKey) =>{
+    params.t= generateUID();
+    return (dispatch) =>{
+        axiosUtil({
+            url: url,
+            method: 'get',
+            params:params
+        }).then((res)=>{
+            if(!res){
+                alert("连接服务器失败");
+                return;
+            }
+            const data = res.data.data.data;
+            dispatch(deleteListData(data,activeKey))
+        })
     }
 };

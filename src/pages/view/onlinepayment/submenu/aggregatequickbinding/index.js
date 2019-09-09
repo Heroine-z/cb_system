@@ -4,17 +4,18 @@ import * as actionCreators from '../../../../content/store/actionCreators';
 import TabComponent from '../../../../content/common/tab';
 import SerachBox from '../../../../content/common/searchbox';
 import * as configManage from './configManage';
+import AuditButton from '../components/AuditButton';
 import Detail from '../components/Detail';
 import TableList from './components/TableList';
 
 class AggregateQuickBinding extends PureComponent {
 
     render() {
-        const {activeKey,detailData} = this.props;
-        let data ={};
-        detailData.toJS().map((item)=>{
-            if(item.activeKey === activeKey){
-                data = item;
+        const {activeKey, detailData} = this.props;
+        let data = [];
+        detailData.toJS().map((item) => {
+            if (item.activeKey === activeKey) {
+                data = configManage.makeData(item);
             }
         });
         return (
@@ -29,7 +30,11 @@ class AggregateQuickBinding extends PureComponent {
                     <TableList columns={configManage.columns[1]}/>
                 </div>
                 <div style={activeKey.includes("detail") ? {"display": "block"} : {"display": "none"}}>
-                   <Detail data={data}/>
+                    <Detail data={data} title={"详情"}/>
+                </div>
+                <div style={activeKey.includes("audit") ? {"display": "block"} : {"display": "none"}}>
+                    <Detail data={data} title={"审核"}/>
+                    <AuditButton/>
                 </div>
             </Fragment>
         )
@@ -45,7 +50,7 @@ class AggregateQuickBinding extends PureComponent {
 const initMapStateToProps = (state) => {
     return {
         activeKey: state.getIn(['content', 'activeKey']),
-        detailData:state.getIn(['content', 'detailData'])
+        detailData: state.getIn(['content', 'detailData'])
     }
 };
 const initMapDispatchToProps = (dispatch) => {

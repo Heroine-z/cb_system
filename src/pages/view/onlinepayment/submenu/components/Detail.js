@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {Table} from 'antd';
+import AuditButton from './AuditButton';
 
 const columns = [
     {
@@ -14,20 +15,19 @@ const columns = [
         key: 'value',
     },
 ];
+
 class Detail extends PureComponent{
     render(){
+        const {data,title} = this.props;
         return(
                 <Table
                     columns={columns}
-                    dataSource={[]}
+                    dataSource={data}
                     bordered
-                    title={() => '详情'}
+                    title={() => title}
+                    pagination={false}
                 />
         )
-    }
-    componentDidUpdate(){
-        const {data} = this.props;
-        console.log(data)
     }
 
 }

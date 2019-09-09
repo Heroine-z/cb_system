@@ -1,0 +1,13 @@
+.auditBtnWrapper{
+    text-align:center;
+    margin-top: 10px;
+}
+.auditBtnWrapper .pass{
+    width: 120px;
+    height: 40px;
+    margin-right: 30px;
+}
+.auditBtnWrapper .inject{
+    width: 120px;
+    height: 40px;
+}

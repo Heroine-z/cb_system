@@ -3,32 +3,6 @@ import {Divider, Table} from 'antd';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../../../content/store/actionCreators';
 
-const data = () => {
-    let desc = [
-        {
-            key: '201908301817239003959363321',
-            SystemNo: '201908301817239003959363321',
-            SystemTime: '2019-08-30 18:17:23',
-            TxType: '2001-快捷绑卡',
-            BindingTxSN:'201908301815356855220558762',
-            BankID:'700-其他银行',
-            UserID:'201908301817239017698572872',
-            AccountName:'跨境支付4',
-        },
-        {
-            key: '201908301817239003959363322',
-            SystemNo: '201908301817239003959363322',
-            SystemTime: '2019-08-30 18:00:00',
-            TxType: '2001-快捷绑卡',
-            BindingTxSN:'201908301815356855220558762',
-            BankID:'100-邮储银行',
-            UserID:'201908301817239017698572872',
-            AccountName:'跨境支付5'
-        },
-    ];
-    return desc;
-};
-
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -44,11 +18,11 @@ class TableList extends PureComponent {
                 key: 'action',
                 render: (text, record) => (
                     <span>
-                        <a onClick={() => this.handleDeleteClick(record)}>删除 </a>
+                        <a onClick={() => this.handleDeleteClick(record,"/api/AggregateQuickBinding.json")}>删除 </a>
                         <Divider type="vertical"/>
                         <a onClick={() => this.handleDetailClick(record)}>详情</a>
                         <Divider type="vertical"/>
-                        <a>复核</a>
+                        <a onClick={() => this.handleAuditClick(record)}>复核</a>
                     </span>
                 ),
             },
@@ -57,22 +31,37 @@ class TableList extends PureComponent {
     }
 
     handleDetailClick(record) {
-        const {panes, addDetailsTab,addDetailPage} = this.props;
+        const {panes, addNewTab,addNewPage} = this.props;
         let activeKey = 'detail' + Math.random();
         let newTab = {title: '详情', key: activeKey, closable: true,};
         let newPanes = [...panes.toJS(), newTab];
-        addDetailsTab(newPanes,activeKey);
-        addDetailPage(record,activeKey);
+        addNewTab(newPanes,activeKey);
+        addNewPage(record,activeKey);
+    }
+    handleAuditClick(record) {
+        const {panes, addNewTab,addNewPage} = this.props;
+        let activeKey = 'audit' + Math.random();
+        let newTab = {title: '审核', key: activeKey, closable: true,};
+        let newPanes = [...panes.toJS(), newTab];
+        addNewTab(newPanes,activeKey);
+        addNewPage(record,activeKey);
     }
 
-    handleDeleteClick(record) {
-
+    handleDeleteClick(record,url) {
+        const {deleteData,activeKey} = this.props;
+        deleteData({"systemNo":record.key},url,activeKey);
     }
 
     render() {
-        const {columns} = this.props;
+        const {columns,listData,activeKey} = this.props;
+        let data = [];
+        listData.toJS().map((item)=>{
+           if(item.activeKey === activeKey){
+               data = item.data;
+           }
+        });
         return (
-            <Table rowSelection={rowSelection} columns={columns} dataSource={data()} bordered
+            <Table rowSelection={rowSelection} columns={columns} dataSource={data} bordered
                    pagination={{defaultPageSize: 20}}/>
         )
 
@@ -83,15 +72,19 @@ const initMapStateToProps = (state) => {
     return {
         panes: state.getIn(['content', 'panes']),
         activeKey: state.getIn(['content', 'activeKey']),
+        listData: state.getIn(['content','listData']),
     }
 };
 const initMapDispatchToProps = (dispatch) => {
     return {
-        addDetailsTab(newPanes,activeKey) {
+        addNewTab(newPanes,activeKey) {
             dispatch(actionCreators.addTab(newPanes, activeKey))
         },
-        addDetailPage(record,activeKey) {
-            dispatch(actionCreators.setDetailData(record,activeKey));
+        addNewPage(record,activeKey) {
+            dispatch(actionCreators.setData(record,activeKey));
+        },
+        deleteData(params,url,activeKey){
+            dispatch(actionCreators.deleteData(params,url,activeKey))
         }
     }
 };

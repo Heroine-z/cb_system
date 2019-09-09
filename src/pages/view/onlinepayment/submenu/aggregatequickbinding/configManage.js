@@ -206,6 +206,40 @@ export const rowSelection = {
         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
     },
 };
+// 详情显示字段
+export const makeData = (data) => {
+    return [
+        {
+            key: '系统流水号',
+            value: data.SystemNo
+        },
+        {
+            key: '系统时间',
+            value: data.SystemTime
+        },
+        {
+            key: '交易类型',
+            value: data.TxType
+        },
+        {
+            key: '绑定流水号',
+            value: data.BindingTxSN
+        },
+        {
+            key: '银行ID',
+            value: data.BankID
+        },
+        {
+            key: '用户ID',
+            value: data.BankID
+        },
+        {
+            key: '账户名称',
+            value: data.AccountName
+        },
+    ]
+};
+
 export const data = ()=>{
     let desc = [
         {
