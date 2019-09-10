@@ -1,5 +1,5 @@
 import React, {PureComponent,Fragment} from 'react';
-import TabComponent from "../../../../content/common/tab";
+import TabComponent from "pages/content/common/tab";
 
 class AggregatePayment extends PureComponent{
 

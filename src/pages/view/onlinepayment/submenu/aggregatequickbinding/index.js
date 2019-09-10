@@ -1,12 +1,12 @@
 import React, {PureComponent, Fragment} from 'react';
 import {connect} from 'react-redux';
-import * as actionCreators from '../../../../content/store/actionCreators';
-import TabComponent from '../../../../content/common/tab';
-import SerachBox from '../../../../content/common/searchbox';
+import * as actionCreators from 'pages/content/store/actionCreators';
+import TabComponent from 'pages/content/common/tab';
+import SerachBox from 'pages/content/common/searchbox';
 import * as configManage from './configManage';
-import AuditButton from '../../../../content/common/auditbtn/AuditButton';
-import OperateBar from '../../../../content/common/operatebar';
-import Detail from '../../../../content/common/detail/index';
+import AuditButton from 'pages/content/common/auditbtn/AuditButton';
+import OperateBar from 'pages/content/common/operatebar';
+import Detail from 'pages/content/common/detail/index';
 import TableList from './components/TableList';
 
 class AggregateQuickBinding extends PureComponent {
@@ -51,6 +51,12 @@ class AggregateQuickBinding extends PureComponent {
         // 设置tab标题
         const {setTab} = this.props;
         setTab(configManage.tabList());
+    }
+
+    componentWillUnmount(){
+        // 去除tab标题
+        const {setTab} = this.props;
+        setTab([]);
     }
 }
 
