@@ -18,7 +18,7 @@ class TableList extends PureComponent {
                 title: '操作',
                 key: 'action',
                 render: (text, record) => (
-                    <span>
+                    <span style={{cursor:'pointer'}}>
                         <span onClick={() => this.handleDeleteClick(record)}>删除 </span>
                         <Divider type="vertical"/>
                         <span onClick={() => this.handleDetailClick(record)}>详情</span>

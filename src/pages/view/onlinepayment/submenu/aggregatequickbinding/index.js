@@ -5,6 +5,7 @@ import TabComponent from '../../../../content/common/tab';
 import SerachBox from '../../../../content/common/searchbox';
 import * as configManage from './configManage';
 import AuditButton from '../../../../content/common/auditbtn/AuditButton';
+import OperateBar from '../../../../content/common/operatebar';
 import Detail from '../../../../content/common/detail/index';
 import TableList from './components/TableList';
 
@@ -29,6 +30,11 @@ class AggregateQuickBinding extends PureComponent {
                 <div style={activeKey === "2" ? {"display": "block"} : {"display": "none"}}>
                     <SerachBox searchCondition={configManage.searchCondition[1]} url={'/api/AggQuickPaymentSearch.json'}/>
                     <TableList columns={configManage.columns[1]}/>
+                </div>
+                <div style={activeKey === "3" ? {"display": "block"} : {"display": "none"}}>
+                    <SerachBox searchCondition={configManage.searchCondition[2]} url={'/api/AggQuickPaymentSearch.json'}/>
+                    <OperateBar fileConfig={configManage.fileConfig}/>
+                    <TableList columns={configManage.columns[2]}/>
                 </div>
                 <div style={activeKey.includes("detail") ? {"display": "block"} : {"display": "none"}}>
                     <Detail data={data} title={"详情"}/>

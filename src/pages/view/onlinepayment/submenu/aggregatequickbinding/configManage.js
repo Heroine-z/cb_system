@@ -1,4 +1,4 @@
-import {DatePicker,Input, Select} from "antd";
+import {DatePicker, Input, message, Select} from "antd";
 import React from "react";
 
 const {Option} = Select;
@@ -6,7 +6,8 @@ const {Option} = Select;
 export const tabList = () => {
     return [
         {title: '快捷绑卡', key: '1', closable: false,},
-        {title: '快捷支付', key: '2', closable: false,}
+        {title: '快捷支付', key: '2', closable: false,},
+        {title: '文件上传', key: '3', closable: false,}
     ];
 };
 
@@ -110,9 +111,32 @@ const search2 = [
         )
     }
 ];
+// 第二个search条件搜索内容
+const search3 = [
+    {
+        label: "开始时间3",
+        name: "fromTime",
+        type: (<DatePicker/>)
+    },
+    {
+        label: "结束时间3",
+        name: "endTime",
+        type: (<DatePicker/>)
+    },
+    {
+        label: "文件名称",
+        name: "fileName",
+        type: (<Input/>)
+    },
+    {
+        label: "文件路径",
+        name: "filePath",
+        type: ( <Input/>)
+    }
+];
 
 // 搜索条件
-export const searchCondition = [search1, search2];
+export const searchCondition = [search1, search2, search3];
 
 // 搜索url
 export const searchUrl = {
@@ -199,9 +223,37 @@ export const columns2 = [
         key: 'AccountName',
     },
 ];
+// 第二个标签下列表头
+export const columns3 = [
+    {
+        title: '系统流水号3',
+        dataIndex: 'SystemNo',
+        key: 'SystemNo',
+    },
+    {
+        title: '系统时间3',
+        dataIndex: 'SystemTime',
+        key: 'SystemTime',
+    },
+    {
+        title: '交易类型3',
+        dataIndex: 'TxType',
+        key: 'TxType',
+    },
+    {
+        title: '文件名称',
+        dataIndex: 'fileName',
+        key: 'fileName',
+    },
+    {
+        title: '文件路径',
+        dataIndex: 'filePath',
+        key: 'filePath',
+    }
+];
 
 // 列表展示列头项
-export const columns = [columns1,columns2];
+export const columns = [columns1,columns2,columns3];
 
 export const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -267,4 +319,28 @@ export const data = ()=>{
         },
     ];
     return desc;
+};
+
+// 上传文件的配置
+export const fileConfig = {
+    name: 'file',
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    accept: ".txt",
+    // 上传前的校验
+    beforeUpload(file, fileList) {
+        let fileNameSuffix = file.name.split(".")[1];
+        if (fileNameSuffix !== "txt") {
+            message.error("上传文件需要以.txt结尾");
+            return false;
+        }
+        return true;
+    },
+    // 上传后状态提示
+    onChange({file}) {
+        if (file.status === 'done') {
+            message.success(`${file.name}上传成功！`);
+        } else if (file.status === 'error') {
+            message.error(`${file.name} 上传失败！`);
+        }
+    }
 };
