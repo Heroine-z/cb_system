@@ -18,11 +18,11 @@ class TableList extends PureComponent {
                 key: 'action',
                 render: (text, record) => (
                     <span>
-                        <a onClick={() => this.handleDeleteClick(record,"/api/AggregateQuickBinding.json")}>删除 </a>
+                        <span onClick={() => this.handleDeleteClick(record,"/api/AggregateQuickBinding.json")}>删除 </span>
                         <Divider type="vertical"/>
-                        <a onClick={() => this.handleDetailClick(record)}>详情</a>
+                        <span onClick={() => this.handleDetailClick(record)}>详情</span>
                         <Divider type="vertical"/>
-                        <a onClick={() => this.handleAuditClick(record)}>复核</a>
+                        <span onClick={() => this.handleAuditClick(record)}>复核</span>
                     </span>
                 ),
             },
@@ -59,6 +59,7 @@ class TableList extends PureComponent {
            if(item.activeKey === activeKey){
                data = item.data;
            }
+           return item;
         });
         return (
             <Table rowSelection={rowSelection} columns={columns} dataSource={data} bordered

@@ -6,70 +6,29 @@ const defaultStore = fromJS({
     panes: [],
     activeKey: "1",
     detailData: [],
-    listData: [
-        {
-            activeKey:'1',
-            pages:1,
-            data:[
-                {
-                    "key": "201908301817239003959363321",
-                    "SystemNo": "201908301817239003959363321",
-                    "SystemTime": "2019-08-30 18:17:23",
-                    "TxType": "2001-快捷绑卡",
-                    "BindingTxSN":"201908301815356855220558762",
-                    "BankID":"222-其他银行",
-                    "UserID":"201908301817239017698572872",
-                    "AccountName":"跨境支付4"
-                },
-                {
-                    "key": "201908301817239003959363322",
-                    "SystemNo": "201908301817239003959363322",
-                    "SystemTime": "2019-08-30 18:00:00",
-                    "TxType": "2001-快捷绑卡",
-                    "BindingTxSN":"201908301815356855220558762",
-                    "BankID":"222-邮储银行",
-                    "UserID":"201908301817239017698572872",
-                    "AccountName":"跨境支付5"
-                }
-            ]
-        },
-        {
-            activeKey:'2',
-            pages:1,
-            data:[
-                {
-                    "key": "201908301817239003959363321",
-                    "SystemNo": "201908301817239003959363321",
-                    "SystemTime": "2019-09-30 18:17:23",
-                    "TxType": "2001-快捷绑卡",
-                    "BindingTxSN":"201908301815356855220558762",
-                    "BankID":"666-其他银行",
-                    "UserID":"201908301817239017698572872",
-                    "AccountName":"跨境支付4"
-                },
-                {
-                    "key": "201908301817239003959363322",
-                    "SystemNo": "201908301817239003959363322",
-                    "SystemTime": "2019-09-30 18:00:00",
-                    "TxType": "2001-快捷绑卡",
-                    "BindingTxSN":"201908301815356855220558762",
-                    "BankID":"666-邮储银行",
-                    "UserID":"201908301817239017698572872",
-                    "AccountName":"跨境支付5"
-                }
-            ]
-        }
-    ],
+    listData: [],
 });
+// 更新listData值具体操作
 const setListData = (state,action) =>{
-    let data = [...state.get('listData').toJS()];
-    data.map((item) => {
+    let existActiveKey = false;
+    let data = state.get('listData').toJS().map((item) => {
         if (item.activeKey === action.activeKey) {
             item.data = action.data;
+            item.pages = action.pages;
+            existActiveKey = true;
         }
+        return item;
     });
+    if(!existActiveKey){
+        data.push({
+            activeKey:action.activeKey,
+            pages:action.pages,
+            data:action.data,
+        })
+    }
     return fromJS(data);
 };
+
 export default (state = defaultStore, action) => {
     switch (action.type) {
         case actionCreatorType.SET_SUBMENU:
@@ -92,6 +51,8 @@ export default (state = defaultStore, action) => {
         case actionCreatorType.SET_DETAIL_DATA:
             return state.set('detailData', state.get('detailData').push(fromJS(action.detailData)));
         case actionCreatorType.DELETE_DATA:
+            return state.set('listData',setListData(state,action));
+        case actionCreatorType.SEARCH_DATA:
             return state.set('listData',setListData(state,action));
         default :
             return state;

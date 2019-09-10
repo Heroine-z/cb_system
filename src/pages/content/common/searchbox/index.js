@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Form, Row, Col, Button} from 'antd';
 import {connect} from 'react-redux';
+import * as actionCreators from '../../store/actionCreators';
 import './style.css';
 
 
@@ -26,9 +27,10 @@ class SearchBox extends PureComponent {
         return children;
     }
 
-    handleSearch = e => {
+    handleSearch = (e,url,activeKey) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
+            const {getSearchList} = this.props;
             // 对筛选框内容进行校验操作
             const endTime = values.endTime ? values.endTime.format("YYYY-MM-DD").split('-').join("") : "";
             const fromTime = values.fromTime ? values.fromTime.format("YYYY-MM-DD").split('-').join("") : "";
@@ -38,7 +40,12 @@ class SearchBox extends PureComponent {
             }
             values.fromTime = fromTime;
             values.endTime = endTime;
-            console.log(values)
+            for (let item in values){
+                if (values[item] === undefined){
+                    values[item] ="";
+                }
+            }
+            getSearchList(values,url,activeKey);
 
         });
     };
@@ -48,8 +55,9 @@ class SearchBox extends PureComponent {
     };
 
     render() {
+        const {url,activeKey} = this.props;
         return (
-            <Form className="searchContent" onSubmit={this.handleSearch}>
+            <Form className="searchContent" onSubmit={e => this.handleSearch(e,url,activeKey)}>
                 <Row gutter={8}>{this.getFields()}</Row>
                 <Row>
                     <Col span={24} style={{textAlign: 'right'}}>
@@ -71,4 +79,11 @@ const initMapStateToProps = (state) => {
         activeKey:state.getIn(['content', 'activeKey'])
     }
 };
-export default Form.create()(connect(initMapStateToProps, null)(SearchBox));
+const initMapDispatchToProps = (dispatch) =>{
+    return {
+        getSearchList(values,url,activeKey){
+            dispatch(actionCreators.getSearchList(values,url,activeKey));
+        }
+    }
+};
+export default Form.create()(connect(initMapStateToProps, initMapDispatchToProps)(SearchBox));

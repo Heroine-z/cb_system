@@ -62,10 +62,11 @@ export const setData = (detailData,activeKey) =>{
         dispatch(setDataAction(detailData))
     }
 };
-const deleteListData = (data,activeKey) =>({
+const deleteListData = (data,pages,activeKey) =>({
    type:actionCreatorsType.DELETE_DATA,
     data,
-    activeKey
+    activeKey,
+    pages
 });
 
 export const deleteData = (params, url,activeKey) =>{
@@ -80,8 +81,32 @@ export const deleteData = (params, url,activeKey) =>{
                 alert("连接服务器失败");
                 return;
             }
-            const data = res.data.data.data;
-            dispatch(deleteListData(data,activeKey))
+            const data = res.data.data;
+            dispatch(deleteListData(data.data,data.pages,activeKey))
+        })
+    }
+};
+
+const searchListData = (data,pages,activeKey) =>({
+    type:actionCreatorsType.SEARCH_DATA,
+    data,
+    activeKey,
+    pages
+});
+export const getSearchList = (params, url,activeKey) =>{
+    params.t= generateUID();
+    return (dispatch) =>{
+        axiosUtil({
+            url: url,
+            method: 'get',
+            params:params
+        }).then((res)=>{
+            if(!res){
+                alert("连接服务器失败");
+                return;
+            }
+            const data = res.data.data;
+            dispatch(searchListData(data.data,data.pages,activeKey))
         })
     }
 };

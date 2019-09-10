@@ -17,16 +17,17 @@ class AggregateQuickBinding extends PureComponent {
             if (item.activeKey === activeKey) {
                 data = configManage.makeData(item);
             }
+            return item;
         });
         return (
             <Fragment>
                 <TabComponent/>
                 <div style={activeKey === "1" ? {"display": "block"} : {"display": "none"}}>
-                    <SerachBox searchCondition={configManage.searchCondition[0]}/>
+                    <SerachBox searchCondition={configManage.searchCondition[0]} url={'/api/AggQuickBindingSearch.json'}/>
                     <TableList columns={configManage.columns[0]}/>
                 </div>
                 <div style={activeKey === "2" ? {"display": "block"} : {"display": "none"}}>
-                    <SerachBox searchCondition={configManage.searchCondition[1]}/>
+                    <SerachBox searchCondition={configManage.searchCondition[1]} url={'/api/AggQuickPaymentSearch.json'}/>
                     <TableList columns={configManage.columns[1]}/>
                 </div>
                 <div style={activeKey.includes("detail") ? {"display": "block"} : {"display": "none"}}>
