@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import {Divider, Table} from 'antd';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../../../content/store/actionCreators';
+import {searchUrl} from '../configManage';
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -18,7 +19,7 @@ class TableList extends PureComponent {
                 key: 'action',
                 render: (text, record) => (
                     <span>
-                        <span onClick={() => this.handleDeleteClick(record,"/api/AggregateQuickBinding.json")}>删除 </span>
+                        <span onClick={() => this.handleDeleteClick(record)}>删除 </span>
                         <Divider type="vertical"/>
                         <span onClick={() => this.handleDetailClick(record)}>详情</span>
                         <Divider type="vertical"/>
@@ -47,23 +48,48 @@ class TableList extends PureComponent {
         addNewPage(record,activeKey);
     }
 
-    handleDeleteClick(record,url) {
+    handleDeleteClick(record) {
         const {deleteData,activeKey} = this.props;
-        deleteData({"systemNo":record.key},url,activeKey);
+        deleteData({"systemNo":record.key},activeKey);
     }
+    onChange = (page,activeKey,params) => {
+        console.log(page,activeKey);
+        const {changeCurrentPage} = this.props;
+        params.pageNo = page;
+        changeCurrentPage(params,activeKey);
+    };
 
     render() {
-        const {columns,listData,activeKey} = this.props;
+        const {columns,listData,activeKey,searchParams} = this.props;
         let data = [];
+        let page = 0;
+        let totalPage = 0;
+        let params = {};
         listData.toJS().map((item)=>{
            if(item.activeKey === activeKey){
                data = item.data;
+               page = parseInt(item.pages);
+               totalPage = parseInt(item.totalPage);
            }
-           return item;
+            return item;
+        });
+        searchParams.toJS().map((item)=>{
+            if(item.activeKey === activeKey){
+                params = item.params;
+            }
+            return item;
         });
         return (
-            <Table rowSelection={rowSelection} columns={columns} dataSource={data} bordered
-                   pagination={{defaultPageSize: 20}}/>
+            <Table rowSelection={rowSelection}
+                   columns={columns}
+                   dataSource={data}
+                   bordered
+                   pagination={{
+                       defaultPageSize: 1,
+                       total:totalPage,
+                       // current:page,
+                       onChange:(page)=>this.onChange(page,activeKey,params)
+                   }}/>
         )
 
     }
@@ -74,6 +100,7 @@ const initMapStateToProps = (state) => {
         panes: state.getIn(['content', 'panes']),
         activeKey: state.getIn(['content', 'activeKey']),
         listData: state.getIn(['content','listData']),
+        searchParams:state.getIn(['content','searchParams'])
     }
 };
 const initMapDispatchToProps = (dispatch) => {
@@ -84,8 +111,11 @@ const initMapDispatchToProps = (dispatch) => {
         addNewPage(record,activeKey) {
             dispatch(actionCreators.setData(record,activeKey));
         },
-        deleteData(params,url,activeKey){
-            dispatch(actionCreators.deleteData(params,url,activeKey))
+        deleteData(params,activeKey){
+            dispatch(actionCreators.deleteData(params,searchUrl.key1,activeKey))
+        },
+        changeCurrentPage(params,activeKey){
+             dispatch(actionCreators.getSearchList(params,searchUrl.key1,activeKey))
         }
     }
 };

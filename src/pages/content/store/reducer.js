@@ -5,6 +5,7 @@ const defaultStore = fromJS({
     submenu: "",
     panes: [],
     activeKey: "1",
+    searchParams:[],
     detailData: [],
     listData: [],
 });
@@ -15,6 +16,7 @@ const setListData = (state,action) =>{
         if (item.activeKey === action.activeKey) {
             item.data = action.data;
             item.pages = action.pages;
+            item.totalPage = action.totalPage;
             existActiveKey = true;
         }
         return item;
@@ -24,9 +26,28 @@ const setListData = (state,action) =>{
             activeKey:action.activeKey,
             pages:action.pages,
             data:action.data,
+            totalPage: action.totalPage
         })
     }
     return fromJS(data);
+};
+// 更新搜索框条件值
+const setSearchParams = (state,action)=>{
+    let existActiveKey = false;
+    let params = state.get('searchParams').toJS().map((item)=>{
+        if (item.activeKey === action.activeKey) {
+            item.params = action.params;
+            existActiveKey = true;
+        }
+        return item;
+    });
+    if(!existActiveKey){
+        params.push({
+            activeKey:action.activeKey,
+            params:action.params
+        })
+    }
+    return fromJS(params);
 };
 
 export default (state = defaultStore, action) => {
@@ -53,7 +74,10 @@ export default (state = defaultStore, action) => {
         case actionCreatorType.DELETE_DATA:
             return state.set('listData',setListData(state,action));
         case actionCreatorType.SEARCH_DATA:
-            return state.set('listData',setListData(state,action));
+            return state.merge({
+                listData:setListData(state,action),
+                searchParams: setSearchParams(state,action)
+            });
         default :
             return state;
     }

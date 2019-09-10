@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import * as actionCreators from '../../store/actionCreators';
 import './style.css';
 
-
 class SearchBox extends PureComponent {
 
     // 将搜索条件进行赋值
@@ -27,7 +26,7 @@ class SearchBox extends PureComponent {
         return children;
     }
 
-    handleSearch = (e,url,activeKey) => {
+    handleSearch = (e, url, activeKey) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             const {getSearchList} = this.props;
@@ -40,12 +39,13 @@ class SearchBox extends PureComponent {
             }
             values.fromTime = fromTime;
             values.endTime = endTime;
-            for (let item in values){
-                if (values[item] === undefined){
-                    values[item] ="";
+            for (let item in values) {
+                if (values[item] === undefined) {
+                    values[item] = "";
                 }
             }
-            getSearchList(values,url,activeKey);
+            values.pageNo = 1;
+            getSearchList(values, url, activeKey);
 
         });
     };
@@ -55,9 +55,9 @@ class SearchBox extends PureComponent {
     };
 
     render() {
-        const {url,activeKey} = this.props;
+        const {url, activeKey} = this.props;
         return (
-            <Form className="searchContent" onSubmit={e => this.handleSearch(e,url,activeKey)}>
+            <Form className="searchContent" onSubmit={e => this.handleSearch(e, url, activeKey)}>
                 <Row gutter={8}>{this.getFields()}</Row>
                 <Row>
                     <Col span={24} style={{textAlign: 'right'}}>
@@ -76,13 +76,13 @@ class SearchBox extends PureComponent {
 
 const initMapStateToProps = (state) => {
     return {
-        activeKey:state.getIn(['content', 'activeKey'])
+        activeKey: state.getIn(['content', 'activeKey'])
     }
 };
-const initMapDispatchToProps = (dispatch) =>{
+const initMapDispatchToProps = (dispatch) => {
     return {
-        getSearchList(values,url,activeKey){
-            dispatch(actionCreators.getSearchList(values,url,activeKey));
+        getSearchList(values, url, activeKey) {
+            dispatch(actionCreators.getSearchList(values, url, activeKey));
         }
     }
 };

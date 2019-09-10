@@ -115,10 +115,12 @@ const search2 = [
 export const searchCondition = [search1, search2];
 
 // 搜索url
-export const searchUrl = [
-    "/api/aggregatequickbinding.json",
-    "/api/aggregatequickbinding2.json"
-];
+export const searchUrl = {
+    key1:"/api/AggregateQuickBinding.json",
+    key2: "/api/AggQuickPaymentSearch.json"
+};
+
+
 
 // 第一个标签下列表头
 export const columns1 = [

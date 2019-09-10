@@ -62,18 +62,19 @@ export const setData = (detailData,activeKey) =>{
         dispatch(setDataAction(detailData))
     }
 };
-const deleteListData = (data,pages,activeKey) =>({
+const deleteListData = (data,activeKey) =>({
    type:actionCreatorsType.DELETE_DATA,
-    data,
+    data:data.data,
     activeKey,
-    pages
+    pages:data.pages,
+    totalPage:data.totalPage,
 });
 
 export const deleteData = (params, url,activeKey) =>{
     params.t= generateUID();
     return (dispatch) =>{
         axiosUtil({
-            url: url,
+            url: url+"?op=delete",
             method: 'get',
             params:params
         }).then((res)=>{
@@ -82,22 +83,24 @@ export const deleteData = (params, url,activeKey) =>{
                 return;
             }
             const data = res.data.data;
-            dispatch(deleteListData(data.data,data.pages,activeKey))
+            dispatch(deleteListData(data,activeKey))
         })
     }
 };
 
-const searchListData = (data,pages,activeKey) =>({
+const searchListData = (data,activeKey,params) =>({
     type:actionCreatorsType.SEARCH_DATA,
-    data,
+    data:data.data,
     activeKey,
-    pages
+    pages:data.pages,
+    totalPage:data.totalPage,
+    params
 });
 export const getSearchList = (params, url,activeKey) =>{
     params.t= generateUID();
     return (dispatch) =>{
         axiosUtil({
-            url: url,
+            url: url+"?op=search",
             method: 'get',
             params:params
         }).then((res)=>{
@@ -106,7 +109,7 @@ export const getSearchList = (params, url,activeKey) =>{
                 return;
             }
             const data = res.data.data;
-            dispatch(searchListData(data.data,data.pages,activeKey))
+            dispatch(searchListData(data,activeKey,params))
         })
     }
 };
