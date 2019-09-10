@@ -28,7 +28,6 @@ class TableList extends PureComponent {
                 ),
             },
         )
-
     }
 
     handleDetailClick(record) {
@@ -53,7 +52,6 @@ class TableList extends PureComponent {
         deleteData({"systemNo":record.key},activeKey);
     }
     onChange = (page,activeKey,params) => {
-        console.log(page,activeKey);
         const {changeCurrentPage} = this.props;
         params.pageNo = page;
         changeCurrentPage(params,activeKey);
@@ -87,7 +85,7 @@ class TableList extends PureComponent {
                    pagination={{
                        defaultPageSize: 1,
                        total:totalPage,
-                       // current:page,
+                       current:page,
                        onChange:(page)=>this.onChange(page,activeKey,params)
                    }}/>
         )

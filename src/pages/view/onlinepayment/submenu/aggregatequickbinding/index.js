@@ -4,8 +4,8 @@ import * as actionCreators from '../../../../content/store/actionCreators';
 import TabComponent from '../../../../content/common/tab';
 import SerachBox from '../../../../content/common/searchbox';
 import * as configManage from './configManage';
-import AuditButton from '../components/AuditButton';
-import Detail from '../components/Detail';
+import AuditButton from '../../../../content/common/auditbtn/AuditButton';
+import Detail from '../../../../content/common/detail/index';
 import TableList from './components/TableList';
 
 class AggregateQuickBinding extends PureComponent {

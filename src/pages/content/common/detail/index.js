@@ -19,13 +19,13 @@ class Detail extends PureComponent{
     render(){
         const {data,title} = this.props;
         return(
-                <Table
-                    columns={columns}
-                    dataSource={data}
-                    bordered
-                    title={() => title}
-                    pagination={false}
-                />
+            <Table
+                columns={columns}
+                dataSource={data}
+                bordered
+                title={() => title}
+                pagination={false}
+            />
         )
     }
 
