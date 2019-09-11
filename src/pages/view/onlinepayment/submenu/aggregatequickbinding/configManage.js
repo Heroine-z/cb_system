@@ -1,6 +1,6 @@
 import {DatePicker, Input, message, Select} from "antd";
 import React from "react";
- import PriceInput from 'pages/content/common/components/Test'
+ import BankIDList from 'pages/content/common/components/BankIDList'
 
 const {Option} = Select;
 // tab 标题
@@ -138,7 +138,7 @@ const search3 = [
         label: "银行ID",
         name: "bankID",
         type: (
-            <PriceInput/>
+            <BankIDList/>
         )
     }
 ];
