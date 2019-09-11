@@ -6,3 +6,4 @@ export const REMOVE_TAB = "remove_tab";
 export const SET_DETAIL_DATA = "set_detail_data";
 export const DELETE_DATA = "delete_data";
 export const SEARCH_DATA = "search_data";
+export const SET_BANKID = "set_bankID";

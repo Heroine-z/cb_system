@@ -96,6 +96,7 @@ const searchListData = (data,activeKey,params) =>({
     totalPage:data.totalPage,
     params
 });
+
 export const getSearchList = (params, url,activeKey) =>{
     params.t= generateUID();
     return (dispatch) =>{
@@ -112,4 +113,24 @@ export const getSearchList = (params, url,activeKey) =>{
             dispatch(searchListData(data,activeKey,params))
         })
     }
+};
+const setBankID = (bankID)=>({
+    type:actionCreatorsType.SET_BANKID,
+    bankID,
+});
+export const getBankID = ()=>{
+  return (dispatch)=>{
+      axiosUtil({
+          url: "api/bankid.json",
+          method: 'get',
+          params:{t:generateUID()}
+      }).then((res)=>{
+          if(!res){
+              alert("连接服务器失败");
+              return;
+          }
+          const data = res.data.data;
+          dispatch(setBankID(data))
+      })
+  }
 };

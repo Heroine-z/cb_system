@@ -19,6 +19,7 @@ class SearchBox extends PureComponent {
                         {getFieldDecorator(searchCondition[i].name, {})(
                             searchCondition[i].type
                         )}
+                        {/*{searchCondition[i].type}*/}
                     </Form.Item>
                 </Col>,
             )

@@ -1,0 +1,46 @@
+{
+  "success": true,
+  "data": [
+    {
+      "bankName":"邮储银行",
+      "bankID":"100"
+    },
+    {
+      "bankName":"工商银行",
+      "bankID":"102"
+    },
+    {
+      "bankName":"农业银行",
+      "bankID":"103"
+    },
+    {
+      "bankName":"中国银行",
+      "bankID":"104"
+    },
+    {
+      "bankName":"建设银行",
+      "bankID":"105"
+    },
+    {
+      "bankName":"交通银行",
+      "bankID":"106"
+    },
+    {
+      "bankName":"平安银行",
+      "bankID":"107"
+    },
+    {
+      "bankName":"招商银行",
+      "bankID":"108"
+    },
+    {
+      "bankName":"兴业银行",
+      "bankID":"109"
+    },
+    {
+      "bankName":"浦发银行",
+      "bankID":"110"
+    }
+  ]
+
+}

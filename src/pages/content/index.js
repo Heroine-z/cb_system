@@ -1,6 +1,9 @@
 import React, {PureComponent} from 'react';
 import OnlinePayment from '../view/onlinepayment';
 import CBOutward from '../view/cboutward';
+import * as actionCreators from './store/actionCreators'
+import {connect} from 'react-redux';
+
 
 class InfoContent extends PureComponent {
 
@@ -15,6 +18,15 @@ class InfoContent extends PureComponent {
             </div>
         )
     }
+    componentDidMount(){
+        this.props.getBankID();
+    }
 }
-
-export default InfoContent;
+const initMapDispatchToProps = (dispatch)=>{
+  return {
+      getBankID(){
+          dispatch(actionCreators.getBankID())
+      }
+  }
+};
+export default connect(null,initMapDispatchToProps)(InfoContent);

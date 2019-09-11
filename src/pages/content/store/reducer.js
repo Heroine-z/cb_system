@@ -8,6 +8,7 @@ const defaultStore = fromJS({
     searchParams:[],
     detailData: [],
     listData: [],
+    bankID:[]
 });
 // 更新listData值具体操作
 const setListData = (state,action) =>{
@@ -78,6 +79,8 @@ export default (state = defaultStore, action) => {
                 listData:setListData(state,action),
                 searchParams: setSearchParams(state,action)
             });
+        case actionCreatorType.SET_BANKID:
+            return state.set('bankID',fromJS(action.bankID));
         default :
             return state;
     }

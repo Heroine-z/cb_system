@@ -1,5 +1,6 @@
 import {DatePicker, Input, message, Select} from "antd";
 import React from "react";
+ import PriceInput from 'pages/content/common/components/Test'
 
 const {Option} = Select;
 // tab 标题
@@ -132,6 +133,13 @@ const search3 = [
         label: "文件路径",
         name: "filePath",
         type: ( <Input/>)
+    },
+    {
+        label: "银行ID",
+        name: "bankID",
+        type: (
+            <PriceInput/>
+        )
     }
 ];
 
