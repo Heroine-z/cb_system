@@ -39,19 +39,10 @@
         ]
       }
     ],
-    "userRight":[
-      {
-        "rightId":0,
-        "desc":"无权限"
-      },
-      {
-        "rightId":1,
-        "desc":"上传权限"
-      },
-      {
-        "rightId":2,
-        "desc":"复核权限"
-      }
-    ]
+    "userRight":{
+      "noRight":false,
+      "uploadRight":true,
+      "checkRight":false
+    }
   }
 }

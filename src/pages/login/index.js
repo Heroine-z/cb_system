@@ -8,6 +8,7 @@ import {SYSTEM_PATH} from '../../system/systemEnvironment';
 import {connect} from 'react-redux';
 import * as actionCreators from './store/actionCreators';
 import {Redirect} from 'react-router-dom';
+import axiosUtil from "util/axiosUtil";
 
 class LoginForm extends PureComponent{
 
@@ -86,6 +87,16 @@ class LoginForm extends PureComponent{
     }
     componentDidMount(){
         this.props.changeCheckCode();
+        // 查询是否有证书
+        axiosUtil({
+            url: '/CBInstitution/Login.do?op=getInputForm',
+            method: 'get'
+        }).then((res)=>{
+            if(!res){
+                alert("连接服务器失败")
+            }
+           console.log(res)
+        })
     }
 
     handleSubmit= e =>{
@@ -120,7 +131,6 @@ const initMapDispatchToProps = (dispatch) =>{
       login(params){
           dispatch(actionCreators.login(params));
       }
-
   }
 };
 

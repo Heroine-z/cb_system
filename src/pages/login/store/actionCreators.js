@@ -35,7 +35,7 @@ export const login =(params) =>{
     params.t= generateUID();
   return (dispatch) =>{
       axiosUtil({
-          url: '/api/login.json',
+          url: '/CBInstitution/Login.do?op=doAction',
           method: 'get',
           params:params
       }).then((res)=>{
@@ -43,9 +43,12 @@ export const login =(params) =>{
               alert("连接服务器失败")
           }
           const data = res.data.data;
+          console.log(data)
           // 信息存储到本地
-          saveSessionStorage(data);
-          dispatch(getLoginData(data))
+          // saveSessionStorage(data);
+          // dispatch(getLoginData(data))
       })
   }
 };
+
+

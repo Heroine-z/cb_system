@@ -9,9 +9,9 @@ class AuditButton extends PureComponent {
         return (
             <Form className="searchContent" onSubmit={this.handleSearch}>
                 <Row>
-                    <Form.Item label={"审核描述："} labelCol={{span: 1}}>
+                    <Form.Item label={"审核描述："} labelCol={{span: 3}}>
                         {getFieldDecorator('remark', {})(
-                            <TextArea rows={3} name='remark'/>
+                            <TextArea rows={4} name='remark'/>
                         )}
                     </Form.Item>
                 </Row>
