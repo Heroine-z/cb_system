@@ -32,21 +32,20 @@ const saveSessionStorage = (data) =>{
 };
 
 export const login =(params) =>{
-    params.t= generateUID();
   return (dispatch) =>{
       axiosUtil({
           url: '/CBInstitution/Login.do?op=doAction',
-          method: 'get',
-          params:params
+          method: 'post',
+          data:params,
+          params:{"t":generateUID()}
       }).then((res)=>{
           if(!res){
               alert("连接服务器失败")
           }
           const data = res.data.data;
-          console.log(data)
           // 信息存储到本地
-          // saveSessionStorage(data);
-          // dispatch(getLoginData(data))
+          saveSessionStorage(data);
+          dispatch(getLoginData(data))
       })
   }
 };

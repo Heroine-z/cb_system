@@ -4,7 +4,16 @@ import axios from 'axios';
 const service = axios.create({
     // baseURL: SYSTEM_PATH,
     timeout: 100000,
-    headers: { 'content-type': 'application/json' },
+    transformRequest: [function (data) {
+        let ret = '';
+        for (let item in data) {
+            ret += encodeURIComponent(item) + '=' + encodeURIComponent(data[item]) + '&'
+        }
+        return ret
+    }],
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
     withCredentials: true // 允许携带cookie
 });
 export default service;

@@ -1,5 +1,4 @@
 import React,{PureComponent,Fragment} from 'react';
-import Footer from '../../common/footer/index';
 import logoPic from '../../statics/logo_back.png';
 import {LoginWrapper,ErrorMessge} from './style';
 import { Form, Icon, Input, Button,Row, Col } from 'antd';
@@ -77,7 +76,6 @@ class LoginForm extends PureComponent{
                             </Form.Item>
                         </Form>
                     </LoginWrapper>
-                    <Footer/>
                 </Fragment>
             )
         }else{
